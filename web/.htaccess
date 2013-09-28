@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+    RewriteCond %{REQUEST_FILENAME} !-f
+    
+	RewriteRule . /GuestBook/index.php [L]
+	DirectoryIndex index.php
+	
+	php_flag magic_quotes_gpc Off
+	php_flag magic_quotes_runtime Off
+
+    php_value upload_max_filesize 30M
+</IfModule>
