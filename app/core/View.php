@@ -17,5 +17,4 @@ class View
         $name = str_replace('::', '/view/', $name);
         include Config::$path_bundles.$name;
     }
-
 }
