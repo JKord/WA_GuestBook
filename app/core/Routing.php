@@ -11,16 +11,9 @@ namespace Core;
 
 class Routing
 {
-    private $bundels;
-
-    public function __construct($bundels)
+    private function runAction($controller, $request, $view)
     {
-        $this->bundels = $bundels;
-    }
-
-    private function runAction($controller, $request)
-    {
-        $controller->setRequest($request);
+        $controller->setParameters($request, $view);
 
         $uri = $request->getUri();
         unset($uri[0]);
@@ -49,18 +42,19 @@ class Routing
     public function handleRequest()
     {
         $request = new Request();
+        $view = new View();
         $uri = $request->getUri();
 
         //var_dump($request);
 
         $isFind = false;
         if(!isset($uri[0])) $uri[0] = 'Index';
-        foreach ($this->bundels as $b) {
+        foreach (Config::$bundels as $b) {
             $class = '\\'.$b.'\\Controller\\'.ucfirst($uri[0]);
             if(class_exists($class) == false) continue;
             $controller = new $class;
 
-            if ($this->runAction($controller, $request)) {
+            if ($this->runAction($controller, $request, $view)) {
                 $isFind = true;
                 break;
             }

@@ -17,11 +17,10 @@ abstract class Kernel
     public function __construct()
     {
         $this->register();
+        Config::load($this->bundels);
+        AutoLoad::allPackages();
 
-        $al = new AutoLoad($this->bundels);
-        $al->allPackages();
-
-        $this->routing = new Routing($this->bundels);
+        $this->routing = new Routing();
     }
 
     abstract public function register();

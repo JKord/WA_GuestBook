@@ -13,7 +13,7 @@ class GuestBook extends \Core\Controller
 {
     public function index_get()
     {
-       echo '<h1>GuestBook index_get</h1>';
+       $this->view->render('GuestBook::GuestBook\index_get.php');
     }
 
     public function index_test_get()

@@ -11,19 +11,6 @@ namespace Core;
 
 class AutoLoad
 {
-    private $type_file,
-            $path_bundles;
-
-    private $bundles;
-
-    public function __construct($bundles)
-    {
-        $this->type_file = '*.php';
-        $this->path_bundles = __DIR__.'/../../src/';
-
-        $this->bundles = $bundles;
-    }
-
     public static function load($path)
     {
         $files = glob($path);
@@ -45,9 +32,14 @@ class AutoLoad
         self::load(__DIR__.'/*.php');
     }
 
-    public function allPackages()
+    public static function allPackages()
     {
-        foreach($this->bundles as $bundle)
-            self::load($this->path_bundles.$bundle.'/Controller/'.$this->type_file);
+        foreach(Config::$bundels as $bundle)
+        {
+            $dir = scandir(Config::$path_bundles.$bundle);
+            $dir = array_diff($dir, array('View', '.', '..'));
+            foreach($dir as $d)
+                self::load(Config::$path_bundles.$bundle.'/'.$d.'/'.Config::$type_file);
+        }
     }
 }
