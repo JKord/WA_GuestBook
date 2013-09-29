@@ -9,19 +9,25 @@
 
 namespace GuestBook\Controller;
 
+use GuestBook\Libraries\RepositoryData;
+use GuestBook\Entity\Guest;
+
 class GuestBook extends \Core\Controller
 {
+    private $view_name = 'GuestBook::GuestBook\index_get.php';
+
     public function index_get()
     {
-       $this->view->render('GuestBook::GuestBook\index_get.php');
+       $this->view->render($this->view_name, array('reviews' => RepositoryData::getAll()));
     }
 
-    public function index_add_get()
+    public function add_post()
     {
-        echo '<h1>GuestBook index_test_get</h1>';
+        RepositoryData::add( new Guest($this->request));
+        header('Location: /GuestBook/guestbook');
     }
 
-    public function test_get()
+    public function index_test_get()
     {
         echo '<h1>GuestBook index_test_get</h1>';
     }
