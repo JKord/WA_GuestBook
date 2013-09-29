@@ -16,7 +16,7 @@ class GuestBook extends \Core\Controller
        $this->view->render('GuestBook::GuestBook\index_get.php');
     }
 
-    public function index_test_get()
+    public function index_add_get()
     {
         echo '<h1>GuestBook index_test_get</h1>';
     }
