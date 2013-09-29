@@ -11,11 +11,13 @@ namespace Core;
 
 class Controller
 {
-    protected $request;
+    protected $request,
+              $view;
 
-    public function setRequest($request)
+    public function setParameters($request, $view)
     {
         $this->request = $request;
+        $this->view = $view;
     }
 
     public function getRequest()
