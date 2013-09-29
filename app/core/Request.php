@@ -42,6 +42,14 @@ class Request
         $this->uri = $this->cleaningUri($_SERVER['REQUEST_URI']);
     }
 
+    public function get($name)
+    {
+        if($this->method == 'GET')
+            return $_GET[$name];
+        else
+            return $_POST[$name];
+    }
+
     private function cleaningUri($uri)
     {
         $param_pos = strpos($uri, '?');
