@@ -35,19 +35,24 @@ class Request
         $this->init();
     }
 
-    private function init()
-    {
-        $this->method = $_SERVER['REQUEST_METHOD'];
-        $this->url = $_SERVER['REQUEST_URI'];
-        $this->uri = $this->cleaningUri($_SERVER['REQUEST_URI']);
-    }
-
     public function get($name)
     {
         if($this->method == 'GET')
             return $_GET[$name];
         else
             return $_POST[$name];
+    }
+
+    public function redirect($name)
+    {
+        header('Location: '.$name);
+    }
+
+    private function init()
+    {
+        $this->method = $_SERVER['REQUEST_METHOD'];
+        $this->url = $_SERVER['REQUEST_URI'];
+        $this->uri = $this->cleaningUri($_SERVER['REQUEST_URI']);
     }
 
     private function cleaningUri($uri)

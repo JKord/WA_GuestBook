@@ -24,7 +24,7 @@ class GuestBook extends \Core\Controller
     public function add_post()
     {
         RepositoryData::add( new Guest($this->request));
-        header('Location: /GuestBook/guestbook');
+        $this->request->redirect('/GuestBook/guestbook');
     }
 
     public function index_test_get()

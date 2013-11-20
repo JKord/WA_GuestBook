@@ -30,7 +30,7 @@ class Routing
             $controller->{$method}();
 
             return true;
-        } elseif (method_exists($controller, 'index_'.$request->getMethod())) {
+        } elseif (method_exists($controller, 'index_'.$request->getMethod()) && !isset($uri[1])) {
             $controller->{$method}();
 
             return true;
@@ -51,7 +51,7 @@ class Routing
         if(!isset($uri[0])) $uri[0] = 'Index';
         foreach (Config::$bundels as $b) {
             $class = '\\'.$b.'\\Controller\\'.ucfirst($uri[0]);
-            if(class_exists($class) == false) continue;
+            if(class_exists($class) == false) { $isFind = false; continue;};
             $controller = new $class;
 
             if ($this->runAction($controller, $request, $view)) {
